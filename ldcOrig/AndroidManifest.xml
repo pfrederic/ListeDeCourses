@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.listedecourse"
+    android:versionCode="1"
+    android:versionName="1.0" >
+	<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo" >
+        <!-- remplir liste de course -->
+        <activity
+            android:name="com.example.ldcorig.RemplirListe"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--  Gérer les rayons d'un magasin -->
+        <activity
+            android:name="com.example.ldcorig.MagasinActivity"
+            android:label="@string/title_activity_magasin"
+            android:parentActivityName="com.example.ldcorig.RemplirListe" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.listedecourse.MainActivity" />
+        </activity>
+        <!--  C'est le grand jour on fait les courses-->
+        <activity
+            android:name="com.example.ldcorig.FaireCourseActivity"
+            android:label="@string/title_activity_activite_faire_courses"
+            android:parentActivityName="com.example.ldcorig.RemplirListe" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ldcorig.RemplirListe" />
+        </activity>
+    </application>
+
+</manifest>

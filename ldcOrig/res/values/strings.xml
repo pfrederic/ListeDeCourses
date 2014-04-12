@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">listeDeCourse</string>
+    <string name="action_magasin">Magasin</string>
+    <string name="action_liste">Liste de Course</string>
+    <string name="action_courses">Faire les Courses</string>
+    <string name="lib_btEnregistrer">Enregistrer</string>
+    <string name="Magasin">Gestion des rayons</string>
+    <string name="laListe">Liste en cours:</string>
+    <string name="rayon">Rayon: </string>
+    <string name="produit">Produit: </string>
+    <string name="quantite">Quantité: </string>
+    <string name="ajouter">Ajouter</string>
+    <string name="title_activity_activite_faire_courses">ActiviteFaireCourses</string>
+    <string name="faire_courses">Faire les courses!</string>
+    <string name="caddy">Caddy</string>
+    <string name="reporter">Reporter</string>
+    <string name="annuler">Annuler</string>
+    <string name="modifier">Modifier</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="nomRayon">Nom du rayon:</string>
+
+</resources>
