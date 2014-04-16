@@ -1,6 +1,8 @@
 package com.example.ldcorig;
 
 
+import java.util.ArrayList;
+
 import com.example.listedecourse.R;
 
 import android.app.Activity;
@@ -12,6 +14,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 
 public class AdapterExpandableRayonProduit extends BaseExpandableListAdapter {
 
@@ -94,7 +97,7 @@ public class AdapterExpandableRayonProduit extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		Log.i("ListeDeCourse", "GROUP");
+		//Log.i("ListeDeCourse", "GROUP");
 		View view = null;
 	    if (convertView == null) {
 	      LayoutInflater inflator = context.getLayoutInflater();
@@ -115,8 +118,7 @@ public class AdapterExpandableRayonProduit extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		Log.i("ListeDeCourse", "CHILD");
-		
+		//Log.i("ListeDeCourse", "CHILD");		
 		View view = null;
 	    if (convertView == null) {
 	      LayoutInflater inflator = context.getLayoutInflater();
