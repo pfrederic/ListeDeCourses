@@ -112,6 +112,7 @@ public class FaireCourseActivity extends BaseActivity {
 						String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
 						adresse+="&tabNoArticle[]="+noDeArticle;
 						supressionAEffectuer=true;
+						//commentaire modif test github
 					}
 					Log.i("ListeDeCourse", adresse);
 				}
