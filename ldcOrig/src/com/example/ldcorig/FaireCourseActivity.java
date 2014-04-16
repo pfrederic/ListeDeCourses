@@ -55,6 +55,7 @@ public class FaireCourseActivity extends BaseActivity {
 		//on charge la bonne interface (layout)
 		setContentView(R.layout.activity_faire_courses);
 		listeViewDesProduitsDeLaListeParRayons=(ExpandableListView) findViewById(R.id.expandableListViewProduitDansListe);
+		annulerAchat = (Button) findViewById(R.id.buttonAnnulerAchat);
 		annulerAchat.setOnClickListener(listenerBoutonAnnuler);
 	}
 	/*
@@ -95,8 +96,7 @@ public class FaireCourseActivity extends BaseActivity {
 		 }
 	 }
 	 
-	 private OnClickListener listenerBoutonAnnuler = new View.OnClickListener() {
-		
+	 private OnClickListener listenerBoutonAnnuler = new View.OnClickListener() {		
 		@Override
 		/*
 		 * (non-Javadoc)
@@ -113,8 +113,8 @@ public class FaireCourseActivity extends BaseActivity {
 						adresse+="&tabNoArticle[]="+noDeArticle;
 						supressionAEffectuer=true;
 					}
+					Log.i("ListeDeCourse", adresse);
 				}
-
 			}//fin du for
 			if(supressionAEffectuer)accessWebService(adresse);
 		}

@@ -17,14 +17,11 @@ import android.util.Log;
 public class WebServiceClient extends AsyncTask<String , Void, String> {
 	final InterfaceDeCallBack monInterfaceDeCallBack;
 	//Ajout ICI
-	HttpClient httpclient=null;
+	private static HttpClient httpclient = new DefaultHttpClient();
 	
     public WebServiceClient(InterfaceDeCallBack monInterface) {
     	//constructeur 
         monInterfaceDeCallBack= monInterface;
-        
-	   //Ajout ici
-	   httpclient = new DefaultHttpClient();
     }
 	
 	  
@@ -34,6 +31,7 @@ public class WebServiceClient extends AsyncTask<String , Void, String> {
 	   
 	   HttpPost httppost = new HttpPost(params[0]);
 	   try {
+		Log.i("ListeDeCourse", httpclient.toString());
 	    HttpResponse response = httpclient.execute(httppost);
 	    String reponse = inputStreamToString(
 	      response.getEntity().getContent()).toString();
@@ -41,11 +39,11 @@ public class WebServiceClient extends AsyncTask<String , Void, String> {
 	   }
 	 
 	   catch (ClientProtocolException e) {
-		Log.i("ListeDeCourse","Erreur http: serveur inaccessible ou adresse erronÃ©e");
+		Log.i("ListeDeCourse","Erreur http: serveur inaccessible ou adresse erronée");
 	    e.printStackTrace();
 	   } 
 	   catch (IOException e) {
-		   Log.i("ListeDeCourse","Erreur i/o: Le service met trop de temps Ã  rÃ©pondre");   
+		   Log.i("ListeDeCourse","Erreur i/o: Le service met trop de temps à répondre");   
 	    e.printStackTrace();
 	   }
 	   return null;
@@ -63,14 +61,14 @@ public class WebServiceClient extends AsyncTask<String , Void, String> {
 	   }
 	 
 	   catch (IOException e) {
-	    Log.i("ListeDeCourse","Erreur: Session http interrompue prÃ©maturÃ©ment.");
+	    Log.i("ListeDeCourse","Erreur: Session http interrompue prématurément.");
 	   }
 	   return reponse;
 	  }
 	 
 	  @Override
 	  protected void onPostExecute(String resultat){
-	//Quand on a fini de recevoir la chaine resultat contient la reponse du webservice il faut exÃ©cuter le code prÃ©vu
+	//Quand on a fini de recevoir la chaine resultat contient la reponse du webservice il faut exécuter le code prévu
 	   monInterfaceDeCallBack.receptionDonneesTerminee(resultat);
 	  }
 	 }// fin du  WebServiceClient
