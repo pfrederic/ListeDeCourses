@@ -50,11 +50,11 @@ public class RemplirListe extends BaseActivity{
 			public void onClick(View v) {
 				// ajout d'un produit à la liste
 				spinnerProduit= (Spinner)findViewById(R.id.SpinnerProduit);
-				/*String noProduit=((HashMap<String,String>)(spinnerProduit.getSelectedItem())).get("produitId");
+				String noProduit=((HashMap<String,String>)(spinnerProduit.getSelectedItem())).get("produitId");
 				String qte=((EditText)findViewById(R.id.editTextQuantite)).getText().toString();
 				String adresse=baseUrl+"listeCourse.php?action=ajout&produitId="+noProduit+"&qte="+qte;
 				Log.i("ListeDeCourse",adresse);
-				accessWebService(adresse);*/
+				accessWebService(adresse);
 				
 			}});
 		//obtention du spinner des rayons dans la layout listeDeCourse		
@@ -123,7 +123,7 @@ public class RemplirListe extends BaseActivity{
 							listeDesMapsProduit.add(creerMapProduit(name, number));
 						}//fin du for de parcours du json
 						//création de l'adapteur pour le choix du rayon
-						SimpleAdapter saProduit = new SimpleAdapter(this,listeDesMapsProduit,R.layout.produit_layout,new String[] { "produitLib" },new int[] { R.id.itemLibelleProduit});
+						SimpleAdapter saProduit = new SimpleAdapter(this,listeDesMapsProduit,R.layout.produit_layout,new String[] { "produitLib" },new int[] { R.id.itemLibelleRayon});
 						//on essaye de donner l'adapteur créé au spinner
 						
 						try{ 

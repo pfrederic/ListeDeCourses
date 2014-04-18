@@ -14,8 +14,8 @@ public abstract class BaseActivity extends Activity {
 //quelques propriétés de la classe:
      //adresse du web service qui fournit les données
 	 protected String url;
-	 //protected String baseUrl="http://172.16.63.142/coursesOrig/";
-	 protected String baseUrl="http://192.168.1.22/coursesOrig/";
+	 protected String baseUrl="http://172.16.63.142/coursesOrig/";
+	 //protected String baseUrl="http://192.168.1.22/coursesOrig/";
 	 //accesseur à impl�menter dans chaque classe descendante
 	 /* Retourne l'url compl�te sans les variables $_GET (le chemin de la page)
 	  */
