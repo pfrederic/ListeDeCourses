@@ -1,5 +1,5 @@
 package com.example.ldcorig;
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -11,7 +11,10 @@ import android.view.MenuItem;
 public abstract class BaseActivity extends Activity {
 	
 	
-//quelques propri√©t√©s de la classe:
+//quelques propriÈtÈs de la classe:
+	public static final String PREFS_NAME = "LogsInfos";
+	protected static final String PREF_ID = "id";
+	protected static final String PREF_MDP = "mdp";
      //adresse du web service qui fournit les donn√©es
 	 protected String url;
 	 protected String baseUrl="http://172.16.63.142/coursesOrig/";

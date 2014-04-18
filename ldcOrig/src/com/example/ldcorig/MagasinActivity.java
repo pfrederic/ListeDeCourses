@@ -18,7 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 /**
  * Classe gérant le comportement de l'activité Magasin
  * 		Cette activité a pour fonctionnalités:

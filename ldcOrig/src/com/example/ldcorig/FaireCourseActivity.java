@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 
 public class FaireCourseActivity extends BaseActivity {
 	

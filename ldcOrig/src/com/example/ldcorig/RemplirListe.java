@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 
 import android.os.Bundle;
 import android.util.Log;

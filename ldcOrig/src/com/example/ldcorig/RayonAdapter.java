@@ -2,7 +2,7 @@ package com.example.ldcorig;
 
 import java.util.List;
 
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

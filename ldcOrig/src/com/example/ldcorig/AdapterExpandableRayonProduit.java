@@ -3,7 +3,7 @@ package com.example.ldcorig;
 
 import java.util.ArrayList;
 
-import com.example.listedecourse.R;
+import com.example.ldcorig.R;
 
 import android.app.Activity;
 import android.util.Log;
