@@ -47,6 +47,10 @@ public class FaireCourseActivity extends BaseActivity {
 	  * Bouton caddy, qui confirme que les produits cochés se trouve dans le caddy
 	  */
 	 private Button caddyAchat;
+	 /*
+	  * Bouton reporter, qui reporte les produits cochés sur la liste de course suivante
+	  */
+	 private Button reporterAchat;
 	 
 	 // méthodes
 	 /* Retourne www.<ip serveur>/faireCourse.php
@@ -65,6 +69,7 @@ public class FaireCourseActivity extends BaseActivity {
 		listeViewDesProduitsDeLaListeParRayons=(ExpandableListView) findViewById(R.id.expandableListViewProduitDansListe);
 		annulerAchat = (Button) findViewById(R.id.buttonAnnulerAchat);
 		caddyAchat = (Button) findViewById(R.id.buttonPoserDansCaddy);
+		reporterAchat = (Button) findViewById(R.id.buttonReporterAchat);
 		annulerAchat.setOnClickListener(listenerBoutonAnnuler);
 		caddyAchat.setOnClickListener(listenerBoutonCaddy);
 	}
@@ -144,6 +149,24 @@ public class FaireCourseActivity extends BaseActivity {
 				}
 			}
 			if(achatEffectue)accessWebService(adresse);
+		}
+	};
+	
+	private OnClickListener listenerBoutonReporter = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			String adresse=url()+"?action=reporter";
+			boolean reportEffectue=false;
+			for(int i=0;i<monAdapteur.getEnsRayon().getNbRayon(); i++)
+			{
+				for(int j=0;j<monAdapteur.getEnsRayon().getRayon(i).getNbArticle();j++) {
+					String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
+					adresse+="&tabNoArticle[]="+noDeArticle;
+					reportEffectue=true;
+				}
+			}
+			if(reportEffectue)accessWebService(adresse);
 		}
 	};
 	
