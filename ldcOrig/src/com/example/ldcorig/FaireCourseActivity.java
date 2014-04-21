@@ -72,6 +72,7 @@ public class FaireCourseActivity extends BaseActivity {
 		reporterAchat = (Button) findViewById(R.id.buttonReporterAchat);
 		annulerAchat.setOnClickListener(listenerBoutonAnnuler);
 		caddyAchat.setOnClickListener(listenerBoutonCaddy);
+		reporterAchat.setOnClickListener(listenerBoutonReporter);
 	}
 	/*
 	 * Reçoit les données en Json de la base, les décortique, et crée des ensembleRayon (Rayon + Article)
@@ -143,9 +144,11 @@ public class FaireCourseActivity extends BaseActivity {
 			for(int i=0;i<monAdapteur.getEnsRayon().getNbRayon(); i++)
 			{
 				for(int j=0;j<monAdapteur.getEnsRayon().getRayon(i).getNbArticle();j++) {
-					String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
-					adresse+="&tabNoArticle[]="+noDeArticle;
-					achatEffectue=true;
+					if(monAdapteur.getEnsRayon().getRayon(i).getArticle(j).isSelected()) {
+						String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
+						adresse+="&tabNoArticle[]="+noDeArticle;
+						achatEffectue=true;
+					}
 				}
 			}
 			if(achatEffectue)accessWebService(adresse);
@@ -161,9 +164,11 @@ public class FaireCourseActivity extends BaseActivity {
 			for(int i=0;i<monAdapteur.getEnsRayon().getNbRayon(); i++)
 			{
 				for(int j=0;j<monAdapteur.getEnsRayon().getRayon(i).getNbArticle();j++) {
-					String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
-					adresse+="&tabNoArticle[]="+noDeArticle;
-					reportEffectue=true;
+					if(monAdapteur.getEnsRayon().getRayon(i).getArticle(j).isSelected()) {
+						String noDeArticle=monAdapteur.getEnsRayon().getRayon(i).getArticle(j).getNo();
+						adresse+="&tabNoArticle[]="+noDeArticle;
+						reportEffectue=true;
+					}
 				}
 			}
 			if(reportEffectue)accessWebService(adresse);
