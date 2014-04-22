@@ -34,11 +34,15 @@ public class LoginActivity extends BaseActivity {
 		editTextMdp = (EditText) findViewById(R.id.editTextMdp);
 		boutonSeConnecter = (Button) findViewById(R.id.buttonSeConnecter);
 		boutonInscription = (Button) findViewById(R.id.buttonInscription);
-		boutonSeConnecter.setOnClickListener(listernerConnexion);
+		boutonSeConnecter.setOnClickListener(listenerConnexion);
+		boutonInscription.setOnClickListener(listenerInscription);
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
 		final String id = pref.getString(PREF_ID, null);
 		final String mdp = pref.getString(PREF_MDP, null);
 		if(id!=null || mdp!=null) {
+			String adresse = url()+"?action=login&id="+id+"&mdp="+mdp;
+			Log.i("ListeDeCourse", adresse);
+			accessWebService(adresse);
 			//liaison entre les 2 activités
 			Intent contexte = new Intent(LoginActivity.this, RemplirListe.class);
 			//lancement de la seconde activité
@@ -86,7 +90,7 @@ public class LoginActivity extends BaseActivity {
 		
 	}
 	
-	private OnClickListener listernerConnexion = new OnClickListener() {
+	private OnClickListener listenerConnexion = new OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
@@ -102,6 +106,17 @@ public class LoginActivity extends BaseActivity {
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
 			}
+		}
+	};
+	
+	private OnClickListener listenerInscription = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			//liaison entre les 2 activités
+			Intent contexte = new Intent(LoginActivity.this, RegisterActivity.class);
+			//lancement de la seconde activité
+			startActivity(contexte);			
 		}
 	};
 
