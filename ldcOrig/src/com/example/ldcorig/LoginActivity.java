@@ -26,7 +26,7 @@ public class LoginActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Pour cacher la barre de titre
-	     requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		setContentView(R.layout.activity_login);
 		
