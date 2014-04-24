@@ -59,11 +59,11 @@ public class LoginActivity extends BaseActivity {
 	    //le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
 			//on garde les bonnes habitudes
 			Log.i("ListeDeCourse", "LoginActivity::taiterDonneesRecues(String jsonResult)");
+			Log.i("ListeDeCourse", jsonResult);
 			try{
 				JSONObject jsonResponse = new JSONObject(jsonResult);				
 				JSONArray jsonMainNode = jsonResponse.optJSONArray("authentification");
 				JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
-				Log.i("ListeDeCourse", jsonChildNode.toString());
 				if(jsonChildNode.has("erreur")==true) {
 					Log.i("ListeDeCourse", "Connection failed");
 					Toast.makeText(getApplicationContext(), "Identifiant ou mot de passe incorrect", Toast.LENGTH_SHORT).show();

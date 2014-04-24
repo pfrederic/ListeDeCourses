@@ -3,6 +3,11 @@ package com.example.ldcorig;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,24 +52,47 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	@Override
-	void traiterDonneesRecues(String result) {
-		// TODO Auto-generated method stub
-		
+	void traiterDonneesRecues(String jsonResult) {
+		//le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
+				//on garde les bonnes habitudes
+				Log.i("ListeDeCourse", "RejoindreFamille::taiterDonneesRecues(String jsonResult)");
+				try{
+					JSONObject jsonResponse = new JSONObject(jsonResult);				
+					JSONArray jsonMainNode = jsonResponse.optJSONArray("register");
+					JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+					if(jsonChildNode.has("erreur")==true) {
+						Log.i("ListeDeCourse", "Pseudo déja utilisé");
+						Toast.makeText(getApplicationContext(), "Ce pseudo est déjà utilisé", Toast.LENGTH_SHORT).show();
+					}
+					else {
+						//liaison entre les 2 activités
+						Intent contexte = new Intent(RegisterActivity.this, RejoindreFamilleActivity.class);
+						//lancement de la seconde activité
+						startActivity(contexte);
+					}
+				}
+				catch (JSONException e) {
+					Toast.makeText(getApplicationContext(), "Erreur: Réponse du webservice incompréhensible", Toast.LENGTH_SHORT).show();
+				}		
 	}
 
 	private boolean memeMotDePasse() {
 		Log.i("ListeDeCourse", "memeMotDePasse()");
-		boolean lesMemes=false;
+		boolean lesMemes;
 		if(editTextMdp.getText().toString().equals(editTextMdpConfirm.getText().toString()))
 		{
 			lesMemes=true;
-		}		
+		}
+		else {
+			lesMemes=false;
+			Toast.makeText(getApplicationContext(), "Les mots de passe saisis ne sont pas les mêmes", Toast.LENGTH_SHORT).show();
+		}
 		return lesMemes;
 	}
 	
 	private boolean mailOk() {
 		Log.i("ListeDeCourse", "mailOk()");
-		boolean saisiOk=false;
+		boolean saisiOk;
 		String masque = "^[a-zA-Z]+[a-zA-Z0-9\\._-]*[a-zA-Z0-9]@[a-zA-Z]+"
                 + "[a-zA-Z0-9\\._-]*[a-zA-Z0-9]+\\.[a-zA-Z]{2,4}$";
 		Pattern pattern = Pattern.compile(masque);
@@ -72,7 +100,10 @@ public class RegisterActivity extends BaseActivity {
 		if (controler.matches()){
 			saisiOk=true;
 		}
-		
+		else {
+			saisiOk=false;
+			Toast.makeText(getApplicationContext(), "L'adresse mail saisi n'est pas valide", Toast.LENGTH_SHORT).show();
+		}		
 		return saisiOk;
 	}
 	private OnClickListener listenerRejoindreFamille = new OnClickListener() {
@@ -90,14 +121,7 @@ public class RegisterActivity extends BaseActivity {
 				mail = editTextMail.getText().toString();
 			}
 			String dateNaissance = editTextNaissanceAnnee.getText().toString()+"-"+editTextNaissanceMois.getText().toString()+"-"+editTextNaissanceJour.getText().toString();
-			
-			if(mdp.isEmpty()) {
-				Toast.makeText(getApplicationContext(), "Les mots de passe saisis ne sont pas les mêmes", Toast.LENGTH_SHORT).show();
-			}
-			else if(mail.isEmpty()) {
-				Toast.makeText(getApplicationContext(), "L'adresse mail saisi n'est pas valide", Toast.LENGTH_SHORT).show();
-			}
-			else {
+			if(!mail.isEmpty() && !mdp.isEmpty()) {
 				String adresse=url()+"?action=register&id="+id+"&mdp="+mdp+"&mail="+mail+"&naissance="+dateNaissance;
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
