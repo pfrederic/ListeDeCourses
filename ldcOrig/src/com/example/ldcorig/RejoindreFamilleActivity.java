@@ -3,6 +3,8 @@ package com.example.ldcorig;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +49,13 @@ public class RejoindreFamilleActivity extends BaseActivity {
 			if(jsonChildNode.has("erreur")==true) {
 				Log.i("ListeDeCourse", "Aucune famille trouvé");
 				Toast.makeText(getApplicationContext(), "Ce code n'existe pas", Toast.LENGTH_SHORT).show();
+			}
+			else {
+				//liaison entre les 2 activités
+				Intent contexte = new Intent(RejoindreFamilleActivity.this, RemplirListe.class);
+				//lancement de la seconde activité
+				startActivity(contexte);
+				Toast.makeText(getApplicationContext(), "Bienvenue", Toast.LENGTH_SHORT).show();
 			}
 		}
 		catch (JSONException e) {

@@ -1,5 +1,6 @@
 package com.example.ldcorig;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +76,15 @@ public class RegisterActivity extends BaseActivity {
 					Toast.makeText(getApplicationContext(), "Erreur: Réponse du webservice incompréhensible", Toast.LENGTH_SHORT).show();
 				}		
 	}
-
+	private boolean pseudoOk() {
+		Log.i("ListeDeCourse", "pseudoOk()");
+		boolean saisiOk=true;
+		if(editTextId.getText().toString().isEmpty()){
+			Toast.makeText(getApplicationContext(), "Veuliez saisir un identifiant", Toast.LENGTH_SHORT).show();
+			saisiOk=false;
+		}
+		return saisiOk;
+	}
 	private boolean memeMotDePasse() {
 		Log.i("ListeDeCourse", "memeMotDePasse()");
 		boolean lesMemes;
@@ -106,22 +115,108 @@ public class RegisterActivity extends BaseActivity {
 		}		
 		return saisiOk;
 	}
+	
+	private boolean anneeNaissanceBisextile() {
+		Log.i("ListeDeCourse", "anneNaissanceBisextile()");
+		boolean anneeBisextile;
+		int annee=Integer.parseInt(editTextNaissanceAnnee.getText().toString());
+		if(annee%4==0 && annee%100!=0 || annee%400==0) {
+			Log.i("ListeDeCourse", "true");
+			anneeBisextile = true;
+		}
+		else {
+			Log.i("ListeDeCourse", "false");
+			anneeBisextile = false;
+		}
+		return anneeBisextile;
+	}
+	
+	private boolean dateNaissanceOk() {
+		Log.i("ListeDeCourse", "dateNaissanceOk()");
+		boolean saisiOk;
+		int jour=Integer.parseInt(editTextNaissanceJour.getText().toString());
+		int mois=Integer.valueOf(editTextNaissanceMois.getText().toString());
+		int annee = Integer.parseInt(editTextNaissanceAnnee.getText().toString());
+		//Création d'une instance calendar
+		Calendar cal = Calendar.getInstance();
+		//Si les champs mois de naissance, jour de naissance et l'annee de naissance ne sont pas vide et que le mois de naissance est comprit entre 0 et 12
+		if(!editTextNaissanceMois.getText().toString().isEmpty() && !editTextNaissanceJour.getText().toString().isEmpty() && !editTextNaissanceAnnee.getText().toString().isEmpty() && mois>=0 && mois<=12 && annee<cal.get(Calendar.YEAR) && annee>1900) {
+			Log.i("ListeDeCourse", "true");
+			//Récupération nombre de jour max du mois
+			cal.set(Calendar.MONTH, Integer.parseInt(editTextNaissanceMois.getText().toString())-1);
+			int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			//Si le mois de naissance est "février"
+			if(editTextNaissanceMois.getText().toString().equals("02")) {
+				//Si l'année de naissance est bistextile
+				if(anneeNaissanceBisextile()) {
+					//Si le jour de naissance est supérieur à 29
+					if(jour<0 || jour>29) {
+						Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
+						saisiOk=false;
+					}
+					//Si le jour de naissance est inférieur à 29
+					else {
+						saisiOk=true;
+					}
+				}
+				//Sinon, c'est pas une année bisextile
+				else {
+					//Si le jour de naissance est supérieur à 28
+					if(jour<0 || jour>28) {
+						Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
+						saisiOk=false;
+					}
+					//Si le jour de naissance est inférieur à 28
+					else {
+						saisiOk=true;
+					}
+				}
+			}
+			//Si ce n'est pas le mois de février
+			else {
+				//Si le jour saisi NE se trouve PAS dans le mois
+				if(jour<0 && jour>maxDay) {
+					Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
+					saisiOk=false;
+				}
+				//Si le jour saisi se trouve bien dans le mois
+				else {
+					saisiOk=true;
+				}
+			}
+		}
+		//Sinon, si les champs sont vides
+		else {
+			Log.i("ListeDeCourse", "false");
+			Toast.makeText(getApplicationContext(), "Saisissez une date de naissance valide", Toast.LENGTH_SHORT).show();
+			saisiOk=false;
+		}
+		return saisiOk;
+	}
+	
 	private OnClickListener listenerRejoindreFamille = new OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
 			Log.i("ListeDeCourse", "onClick(View v)");
-			String id = editTextId.getText().toString();
+			String id = "";
 			String mdp = "";
+			String mail = "";
+			String dateNaissance = "";
+			if(pseudoOk()) {
+				id = editTextId.getText().toString();
+			}
 			if(memeMotDePasse()) {
 				mdp = editTextMdp.getText().toString();
 			}
-			String mail = "";
+			
 			if(mailOk()) {
 				mail = editTextMail.getText().toString();
+			}			
+			if(dateNaissanceOk()){
+				dateNaissance = editTextNaissanceAnnee.getText().toString()+"-"+editTextNaissanceMois.getText().toString()+"-"+editTextNaissanceJour.getText().toString();
 			}
-			String dateNaissance = editTextNaissanceAnnee.getText().toString()+"-"+editTextNaissanceMois.getText().toString()+"-"+editTextNaissanceJour.getText().toString();
-			if(!mail.isEmpty() && !mdp.isEmpty()) {
+			if(!mail.isEmpty() && !mdp.isEmpty() && ! dateNaissance.isEmpty()) {
 				String adresse=url()+"?action=register&id="+id+"&mdp="+mdp+"&mail="+mail+"&naissance="+dateNaissance;
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);

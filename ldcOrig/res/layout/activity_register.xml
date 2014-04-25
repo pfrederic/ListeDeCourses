@@ -143,6 +143,7 @@
             android:layout_toLeftOf="@+id/textView8"
             android:layout_toRightOf="@+id/textView3"
             android:ems="10"
+            android:hint="MM"
             android:inputType="numberSigned"
             android:maxLength="@integer/Deux" />
 
@@ -161,6 +162,7 @@
             android:layout_alignRight="@+id/textView4"
             android:layout_below="@+id/TextView01"
             android:ems="10"
+            android:hint="JJ"
             android:inputType="numberSigned"
             android:maxLength="@integer/Deux" />
 
@@ -172,6 +174,7 @@
             android:layout_alignBottom="@+id/editTextRegisterNaissanceMois"
             android:layout_toRightOf="@+id/textView6"
             android:ems="10"
+            android:hint="AAAA"
             android:inputType="numberSigned"
             android:maxLength="@integer/Quatre" />
 
