@@ -178,6 +178,16 @@
             android:inputType="numberSigned"
             android:maxLength="@integer/Quatre" />
 
+        <Button
+            android:id="@+id/buttonCreerFamille"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/boutonRejoindreFamille"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView5"
+            android:layout_alignTop="@+id/boutonRejoindreFamille"
+            android:text="Créer une nouvelle famille" />
+
     </RelativeLayout>
 
 </FrameLayout>

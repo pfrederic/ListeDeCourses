@@ -62,8 +62,14 @@ public class RegisterActivity extends BaseActivity {
 					JSONArray jsonMainNode = jsonResponse.optJSONArray("register");
 					JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
 					if(jsonChildNode.has("erreur")==true) {
-						Log.i("ListeDeCourse", "Pseudo déja utilisé");
-						Toast.makeText(getApplicationContext(), "Ce pseudo est déjà utilisé", Toast.LENGTH_SHORT).show();
+						if(jsonChildNode.optString("erreur").equals("id")) {
+							Log.i("ListeDeCourse", "Pseudo déja utilisé");
+							Toast.makeText(getApplicationContext(), "Ce pseudo est déjà utilisé", Toast.LENGTH_SHORT).show();
+						}
+						else {
+							Log.i("ListeDeCourse", "Adresse mail déja utilisé");
+							Toast.makeText(getApplicationContext(), "Ce mail est déjà utilisé", Toast.LENGTH_SHORT).show();
+						}
 					}
 					else {
 						//liaison entre les 2 activités
@@ -134,60 +140,67 @@ public class RegisterActivity extends BaseActivity {
 	private boolean dateNaissanceOk() {
 		Log.i("ListeDeCourse", "dateNaissanceOk()");
 		boolean saisiOk;
-		int jour=Integer.parseInt(editTextNaissanceJour.getText().toString());
-		int mois=Integer.valueOf(editTextNaissanceMois.getText().toString());
-		int annee = Integer.parseInt(editTextNaissanceAnnee.getText().toString());
+
 		//Création d'une instance calendar
 		Calendar cal = Calendar.getInstance();
 		//Si les champs mois de naissance, jour de naissance et l'annee de naissance ne sont pas vide et que le mois de naissance est comprit entre 0 et 12
-		if(!editTextNaissanceMois.getText().toString().isEmpty() && !editTextNaissanceJour.getText().toString().isEmpty() && !editTextNaissanceAnnee.getText().toString().isEmpty() && mois>=0 && mois<=12 && annee<cal.get(Calendar.YEAR) && annee>1900) {
-			Log.i("ListeDeCourse", "true");
-			//Récupération nombre de jour max du mois
-			cal.set(Calendar.MONTH, Integer.parseInt(editTextNaissanceMois.getText().toString())-1);
-			int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			//Si le mois de naissance est "février"
-			if(editTextNaissanceMois.getText().toString().equals("02")) {
-				//Si l'année de naissance est bistextile
-				if(anneeNaissanceBisextile()) {
-					//Si le jour de naissance est supérieur à 29
-					if(jour<0 || jour>29) {
-						Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
-						saisiOk=false;
+		if(!editTextNaissanceMois.getText().toString().isEmpty() && !editTextNaissanceJour.getText().toString().isEmpty() && !editTextNaissanceAnnee.getText().toString().isEmpty()) {
+			int jour = Integer.parseInt(editTextNaissanceJour.getText().toString());
+			int mois  = Integer.valueOf(editTextNaissanceMois.getText().toString());
+			int annee  = Integer.parseInt(editTextNaissanceAnnee.getText().toString());
+			//Si le mois saisi est compri entre 0 et 12 et que l'année soit compri entre 1900 et l'année courante
+			if(mois>=0 && mois<=12 && annee<cal.get(Calendar.YEAR) && annee>1900) {
+				//Récupération nombre de jour max du mois
+				cal.set(Calendar.MONTH, Integer.parseInt(editTextNaissanceMois.getText().toString())-1);
+				int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				//Si le mois de naissance est "février"
+				if(editTextNaissanceMois.getText().toString().equals("02")) {
+					//Si l'année de naissance est bistextile
+					if(anneeNaissanceBisextile()) {
+						//Si le jour de naissance est supérieur à 29
+						if(jour<0 || jour>29) {
+							Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
+							saisiOk=false;
+						}
+						//Si le jour de naissance est inférieur à 29
+						else {
+							saisiOk=true;
+						}
 					}
-					//Si le jour de naissance est inférieur à 29
+					//Sinon, c'est pas une année bisextile
 					else {
-						saisiOk=true;
+						//Si le jour de naissance est supérieur à 28
+						if(jour<0 || jour>28) {
+							Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
+							saisiOk=false;
+						}
+						//Si le jour de naissance est inférieur à 28
+						else {
+							saisiOk=true;
+						}
 					}
 				}
-				//Sinon, c'est pas une année bisextile
+				//Si ce n'est pas le mois de février
 				else {
-					//Si le jour de naissance est supérieur à 28
-					if(jour<0 || jour>28) {
+					//Si le jour saisi NE se trouve PAS dans le mois
+					if(jour<0 && jour>maxDay) {
 						Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
 						saisiOk=false;
 					}
-					//Si le jour de naissance est inférieur à 28
+					//Si le jour saisi se trouve bien dans le mois
 					else {
 						saisiOk=true;
 					}
 				}
 			}
-			//Si ce n'est pas le mois de février
+			//Si le mois saisi n'est pas comprit entre 0 et 12 et l'année entre 1900 et l'année courante
 			else {
-				//Si le jour saisi NE se trouve PAS dans le mois
-				if(jour<0 && jour>maxDay) {
-					Toast.makeText(getApplicationContext(), "Date de naissance invalide", Toast.LENGTH_SHORT).show();
-					saisiOk=false;
-				}
-				//Si le jour saisi se trouve bien dans le mois
-				else {
-					saisiOk=true;
-				}
+				Toast.makeText(getApplicationContext(), "Saisissez une date de naissance valide", Toast.LENGTH_SHORT).show();
+				saisiOk=false;
 			}
 		}
 		//Sinon, si les champs sont vides
 		else {
-			Log.i("ListeDeCourse", "false");
 			Toast.makeText(getApplicationContext(), "Saisissez une date de naissance valide", Toast.LENGTH_SHORT).show();
 			saisiOk=false;
 		}

@@ -56,6 +56,10 @@
             android:name="com.example.ldcorig.RejoindreFamilleActivity"
             android:label="@string/title_activity_rejoindre_famille" >
         </activity>
+        <activity
+            android:name="com.example.ldcorig.CreerFamilleActivity"
+            android:label="@string/title_activity_creer_famille" >
+        </activity>
     </application>
 
 </manifest>
