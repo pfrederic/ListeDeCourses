@@ -3,11 +3,9 @@ package com.example.ldcorig;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +20,7 @@ public class RegisterActivity extends BaseActivity {
 
 	//quelques propriétés de la classe:
 	private String url = "authentification.php";
+	private Boolean creerFamille=false;
 	
 	private EditText editTextId;
 	private EditText editTextMdp;
@@ -31,6 +30,7 @@ public class RegisterActivity extends BaseActivity {
 	private EditText editTextNaissanceMois;
 	private EditText editTextNaissanceAnnee;
 	private Button boutonRejoindreFamile;
+	private Button boutonCreerFamille;
 	public String url(){return baseUrl+url;};
 	
 	@Override
@@ -49,7 +49,9 @@ public class RegisterActivity extends BaseActivity {
 		editTextNaissanceAnnee = (EditText) findViewById(R.id.editTextRegisterNaissanceAnnee);
 		
 		boutonRejoindreFamile = (Button) findViewById(R.id.boutonRejoindreFamille);
-		boutonRejoindreFamile.setOnClickListener(listenerRejoindreFamille);
+		boutonCreerFamille = (Button) findViewById(R.id.boutonCreerFamille);
+		boutonRejoindreFamile.setOnClickListener(listenerNouveauMembre);
+		boutonCreerFamille.setOnClickListener(listenerNouveauMembre);
 	}
 
 	@Override
@@ -72,10 +74,25 @@ public class RegisterActivity extends BaseActivity {
 						}
 					}
 					else {
-						//liaison entre les 2 activités
-						Intent contexte = new Intent(RegisterActivity.this, RejoindreFamilleActivity.class);
-						//lancement de la seconde activité
-						startActivity(contexte);
+						String id = editTextId.getText().toString();
+						String mdp = editTextMdp.getText().toString();
+						getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+						.edit()
+						.putString(PREF_ID, id)
+						.putString(PREF_MDP, mdp)
+						.commit();
+						if(creerFamille.equals(true)) {
+							//liaison entre les 2 activités
+							Intent contexte = new Intent(RegisterActivity.this, CreerFamilleActivity.class);
+							//lancement de la seconde activité
+							startActivity(contexte);
+						}
+						else {
+							//liaison entre les 2 activités
+							Intent contexte = new Intent(RegisterActivity.this, RejoindreFamilleActivity.class);
+							//lancement de la seconde activité
+							startActivity(contexte);
+						}
 					}
 				}
 				catch (JSONException e) {
@@ -131,7 +148,6 @@ public class RegisterActivity extends BaseActivity {
 			anneeBisextile = true;
 		}
 		else {
-			Log.i("ListeDeCourse", "false");
 			anneeBisextile = false;
 		}
 		return anneeBisextile;
@@ -207,11 +223,13 @@ public class RegisterActivity extends BaseActivity {
 		return saisiOk;
 	}
 	
-	private OnClickListener listenerRejoindreFamille = new OnClickListener() {
+	private OnClickListener listenerNouveauMembre = new OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
 			Log.i("ListeDeCourse", "onClick(View v)");
+			Log.i("ListeDeCourse", v.toString());
+			Log.i("ListeDeCourse", String.valueOf(v.getId()));
 			String id = "";
 			String mdp = "";
 			String mail = "";
@@ -230,6 +248,11 @@ public class RegisterActivity extends BaseActivity {
 				dateNaissance = editTextNaissanceAnnee.getText().toString()+"-"+editTextNaissanceMois.getText().toString()+"-"+editTextNaissanceJour.getText().toString();
 			}
 			if(!mail.isEmpty() && !mdp.isEmpty() && ! dateNaissance.isEmpty()) {
+				//Si le bouton cliqué est celui pour ensuite créer un famille
+				if(v.getId()==2131099745){
+					creerFamille=true;
+				}
+				
 				String adresse=url()+"?action=register&id="+id+"&mdp="+mdp+"&mail="+mail+"&naissance="+dateNaissance;
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);

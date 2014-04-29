@@ -43,10 +43,6 @@ public class LoginActivity extends BaseActivity {
 			String adresse = url()+"?action=login&id="+id+"&mdp="+mdp;
 			Log.i("ListeDeCourse", adresse);
 			accessWebService(adresse);
-			//liaison entre les 2 activités
-			Intent contexte = new Intent(LoginActivity.this, RemplirListe.class);
-			//lancement de la seconde activité
-			startActivity(contexte);
 		}
 	}
 
@@ -57,19 +53,22 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	void traiterDonneesRecues(String jsonResult) {
 	    //le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
-			//on garde les bonnes habitudes
-			Log.i("ListeDeCourse", "LoginActivity::taiterDonneesRecues(String jsonResult)");
-			Log.i("ListeDeCourse", jsonResult);
-			try{
-				JSONObject jsonResponse = new JSONObject(jsonResult);				
-				JSONArray jsonMainNode = jsonResponse.optJSONArray("authentification");
-				JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
-				if(jsonChildNode.has("erreur")==true) {
-					Log.i("ListeDeCourse", "Connection failed");
-					Toast.makeText(getApplicationContext(), "Identifiant ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
-				}
-				else {
-					Log.i("ListeDeCourse", "Connection success");				    
+		//on garde les bonnes habitudes
+		Log.i("ListeDeCourse", "LoginActivity::taiterDonneesRecues(String jsonResult)");
+		try{
+			JSONObject jsonResponse = new JSONObject(jsonResult);				
+			JSONArray jsonMainNode = jsonResponse.optJSONArray("authentification");
+			JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+			if(jsonChildNode.has("erreur")==true) {
+				Log.i("ListeDeCourse", "Connection failed");
+				Toast.makeText(getApplicationContext(), "Identifiant ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+			}
+			else {
+				Log.i("ListeDeCourse", "Connection success");
+				SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+				final String idShared = pref.getString(PREF_ID, null);
+				final String mdpShared = pref.getString(PREF_MDP, null);
+				if(idShared!=null || mdpShared!=null) {
 				    String id = jsonChildNode.optString("membreId");
 					String mdp = jsonChildNode.optString("membreMdp");
 					getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
@@ -77,17 +76,16 @@ public class LoginActivity extends BaseActivity {
 					.putString(PREF_ID, id)
 					.putString(PREF_MDP, mdp)
 					.commit();
-					
-					//liaison entre les 2 activités
-					Intent contexte = new Intent(LoginActivity.this, RemplirListe.class);
-					//lancement de la seconde activité
-					startActivity(contexte);
-				}
-			} 
-			catch (JSONException e) {
-				Toast.makeText(getApplicationContext(), "Erreur: Réponse du webservice incompréhensible", Toast.LENGTH_SHORT).show();
+				}				
+				//liaison entre les 2 activités
+				Intent contexte = new Intent(LoginActivity.this, RemplirListe.class);
+				//lancement de la seconde activité
+				startActivity(contexte);
 			}
-		
+		} 
+		catch (JSONException e) {
+			Toast.makeText(getApplicationContext(), "Erreur: Réponse du webservice incompréhensible", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	private OnClickListener listenerConnexion = new OnClickListener() {

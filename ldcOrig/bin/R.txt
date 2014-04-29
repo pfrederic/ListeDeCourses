@@ -257,11 +257,11 @@ int id activity_chooser_view_content 0x7f060025
 int id always 0x7f06000b
 int id beginning 0x7f060011
 int id bigLayout 0x7f060064
+int id boutonCreerFamille 0x7f060061
 int id boutonRejoindreFamille 0x7f06005a
 int id buttonAjouterALaListe 0x7f06006f
 int id buttonAjouterRayon 0x7f06004f
 int id buttonAnnulerAchat 0x7f060045
-int id buttonCreerFamille 0x7f060061
 int id buttonCreerFamilleCreation 0x7f06003f
 int id buttonInscription 0x7f060049
 int id buttonModifierRayon 0x7f060050

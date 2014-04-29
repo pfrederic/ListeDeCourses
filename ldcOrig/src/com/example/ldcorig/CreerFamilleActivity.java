@@ -1,5 +1,10 @@
 package com.example.ldcorig;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,9 +33,28 @@ public class CreerFamilleActivity extends BaseActivity {
 	}
 
 	@Override
-	void traiterDonneesRecues(String result) {
-		// TODO Auto-generated method stub
-		
+	void traiterDonneesRecues(String jsonResult) {
+		//le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
+		//on garde les bonnes habitudes
+		Log.i("ListeDeCourse", "RejoindreFamille::taiterDonneesRecues(String jsonResult)");
+		try{
+			JSONObject jsonResponse = new JSONObject(jsonResult);				
+			JSONArray jsonMainNode = jsonResponse.optJSONArray("famille");
+			JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+			if(jsonChildNode.has("erreur")==true) {
+				Toast.makeText(getApplicationContext(), "Ce code n'existe pas", Toast.LENGTH_SHORT).show();
+			}
+			else {
+				//liaison entre les 2 activités
+				Intent contexte = new Intent(CreerFamilleActivity.this, RemplirListe.class);
+				//lancement de la seconde activité
+				startActivity(contexte);
+				Toast.makeText(getApplicationContext(), "Bienvenue", Toast.LENGTH_SHORT).show();
+			}
+		}
+		catch (JSONException e) {
+			Toast.makeText(getApplicationContext(), "Erreur: Réponse du webservice incompréhensible", Toast.LENGTH_SHORT).show();
+		}		
 	}
 	
 	private boolean libelleFamilleOk() {

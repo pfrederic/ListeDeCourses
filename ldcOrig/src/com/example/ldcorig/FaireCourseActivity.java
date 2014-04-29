@@ -1,15 +1,10 @@
 package com.example.ldcorig;
-
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
