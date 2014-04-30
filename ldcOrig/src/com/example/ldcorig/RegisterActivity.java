@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -38,6 +39,7 @@ public class RegisterActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		// Pour cacher la barre de titre
 	    requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    
 		setContentView(R.layout.activity_register);		
 		
 		editTextId = (EditText) findViewById(R.id.editTextRegisterIdentifiant);
@@ -54,6 +56,11 @@ public class RegisterActivity extends BaseActivity {
 		boutonCreerFamille.setOnClickListener(listenerNouveauMembre);
 	}
 
+	//Supprime le menu d'option
+	public boolean onCreateOptionsMenu (Menu menu) {
+		return false;
+	}
+	
 	@Override
 	void traiterDonneesRecues(String jsonResult) {
 		//le webservice répond et on reçoit sa réponse dans la variable "jsonResult"

@@ -7,7 +7,9 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,19 +21,30 @@ public class CreerFamilleActivity extends BaseActivity {
 	private String url = "famille.php";
 	private EditText editTextLibelle;
 	private Button boutonCreationFamille;
+	private Button boutonVersRejoindre;
 	
 	public String url(){return baseUrl+url;};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Pour cacher la barre de titre
+	    requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    
 		setContentView(R.layout.activity_creer_famille);
 		editTextLibelle = (EditText) findViewById(R.id.editTextCreerFamilleLibelle);
 		boutonCreationFamille = (Button) findViewById(R.id.buttonCreerFamilleCreation);
+		boutonVersRejoindre = (Button) findViewById(R.id.buttonCreerFamilleToRejoindreFamille);
 		boutonCreationFamille.setOnClickListener(listenerBoutonCreation);
+		boutonVersRejoindre.setOnClickListener(listenerBoutonVersRejoindre);
 
 	}
 
+	//Supprime le menu d'option
+	public boolean onCreateOptionsMenu (Menu menu) {
+		return false;
+	}
+	
 	@Override
 	void traiterDonneesRecues(String jsonResult) {
 		//le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
@@ -80,6 +93,17 @@ public class CreerFamilleActivity extends BaseActivity {
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
 			}
+		}
+	};
+	
+	private OnClickListener listenerBoutonVersRejoindre = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			//liaison entre les 2 activités
+			Intent contexte = new Intent(CreerFamilleActivity.this, RejoindreFamilleActivity.class);
+			//lancement de la seconde activité
+			startActivity(contexte);
 		}
 	};
 }

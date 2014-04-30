@@ -49,6 +49,16 @@
             android:text="Créer votre famille"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <Button
+            android:id="@+id/buttonCreerFamilleToRejoindreFamille"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:text="Rejoindre une famille" />
+
     </RelativeLayout>
 
 </FrameLayout>

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ public class RejoindreFamilleActivity extends BaseActivity {
 	private String url = "famille.php";
 	private EditText editTextCodeFamille;
 	private Button boutonRejoindreFamille;
+	private Button boutonVersCreerFamille;
 	
 	
 	public String url(){return baseUrl+url;};
@@ -34,9 +36,16 @@ public class RejoindreFamilleActivity extends BaseActivity {
 		
 		editTextCodeFamille = (EditText) findViewById(R.id.editTextRejoindreFamilleCode);
 		boutonRejoindreFamille = (Button) findViewById(R.id.buttonRejoindreFamilleRejoindre);
+		boutonVersCreerFamille = (Button) findViewById(R.id.buttonRejoindreFamilleToCreerFamille);
 		boutonRejoindreFamille.setOnClickListener(listenerBoutonRejoindre);		
+		boutonVersCreerFamille.setOnClickListener(listenerBoutonVersCreer);
 	}
 
+	//Supprime le menu d'option
+	public boolean onCreateOptionsMenu (Menu menu) {
+		return false;
+	}
+	
 	@Override
 	void traiterDonneesRecues(String jsonResult) {
 		//le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
@@ -84,6 +93,17 @@ public class RejoindreFamilleActivity extends BaseActivity {
 			if(saisiOk()) {
 				accessWebService(adresse);
 			}
+		}
+	};
+	
+	private OnClickListener listenerBoutonVersCreer = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			//liaison entre les 2 activités
+			Intent contexte = new Intent(RejoindreFamilleActivity.this, CreerFamilleActivity.class);
+			//lancement de la seconde activité
+			startActivity(contexte);
 		}
 	};
 }
