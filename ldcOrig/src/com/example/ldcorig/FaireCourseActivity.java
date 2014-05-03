@@ -1,10 +1,18 @@
 package com.example.ldcorig;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +29,8 @@ public class FaireCourseActivity extends BaseActivity {
 	/*
 	 * Complément de l'url complète, indiquant la page qu'il faut appeler
 	 */
-	 private String url = "faireCourse.php";
+	 //private String url = "faireCourse.php";
+	 private String url = "listeMagasins.php";
 	 /*
 	  * Adapteur de la listExpandable, contenant des ensembleRayons
 	  */
@@ -46,7 +55,14 @@ public class FaireCourseActivity extends BaseActivity {
 	  * Bouton reporter, qui reporte les produits cochés sur la liste de course suivante
 	  */
 	 private Button reporterAchat;
-	 
+	 /*
+	  * Liste déroulante magasin, qui contient les magasins de la base
+	  */
+	 private Spinner spinnerMagasin;
+	 /*
+	  * La liste des données des magasins de la base
+	  */
+	 public List<Map<String, String>> listeDesMapsMagasin = new ArrayList<Map<String, String>>();
 	 // méthodes
 	 /* Retourne www.<ip serveur>/faireCourse.php
 	  * @see com.example.ldcorig.BaseActivity#url()
@@ -62,48 +78,93 @@ public class FaireCourseActivity extends BaseActivity {
 		//on charge la bonne interface (layout)
 		setContentView(R.layout.activity_faire_courses);
 		listeViewDesProduitsDeLaListeParRayons=(ExpandableListView) findViewById(R.id.expandableListViewProduitDansListe);
+		spinnerMagasin=(Spinner) findViewById(R.id.spinnerMagasin);
 		annulerAchat = (Button) findViewById(R.id.buttonAnnulerAchat);
 		caddyAchat = (Button) findViewById(R.id.buttonPoserDansCaddy);
 		reporterAchat = (Button) findViewById(R.id.buttonReporterAchat);
 		annulerAchat.setOnClickListener(listenerBoutonAnnuler);
 		caddyAchat.setOnClickListener(listenerBoutonCaddy);
 		reporterAchat.setOnClickListener(listenerBoutonReporter);
+		
+		spinnerMagasin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				Log.i("ListeDeCourse", parent.toString());
+				Log.i("ListeDeCourse", view.toString());
+				Log.i("ListeDeCourse", String.valueOf(id));
+				String idDuMagasin=((HashMap<String,String>)(spinnerMagasin.getSelectedItem())).get("magasinId");
+				Log.i("ListeDeCourse", idDuMagasin);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	/*
 	 * Reçoit les données en Json de la base, les décortique, et crée des ensembleRayon (Rayon + Article)
 	 * @see com.example.ldcorig.BaseActivity#traiterDonneesRecues(java.lang.String)
 	 */
-	 public void traiterDonneesRecues(String jsonResult){
-		 ensRayons=new EnsembleRayons();
+	 public void traiterDonneesRecues(String jsonResult) {
 		 try {
-			   JSONObject jsonResponse = new JSONObject(jsonResult);
-			   JSONArray jsonMainNode = jsonResponse.optJSONArray("coursesAFaire");		   
-			   
-			   for (int i = 0; i < jsonMainNode.length(); i++) {
-			    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-			    String productName = jsonChildNode.optString("produitLib");
-			    String productNumber = jsonChildNode.optString("produitId");
-			    String rayName = jsonChildNode.optString("rayonLib");
-			    String rayNumber = jsonChildNode.optString("rayonId");
-			    String listeQte = jsonChildNode.optString("listeQte");
+			 JSONObject jsonResponse = new JSONObject(jsonResult);
+			 JSONArray jsonMainNode = jsonResponse.optJSONArray("magasinInfos");
+			 if(jsonMainNode!=null) {
+				 //for de parcours du json
+				 for (int i = 0; i < jsonMainNode.length(); i++) {
+					JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+					String name = jsonChildNode.optString("magasinLib");
+					String number = jsonChildNode.optString("magasinId");
+					listeDesMapsMagasin.add(creerMapMagasin(name, number));
+				 }//fin du for de parcours du json
+				 //création de l'adapteur pour le choix du rayon
+				 SimpleAdapter sAMagasin = new SimpleAdapter(this,listeDesMapsMagasin,R.layout.magasin_layout,new String[] { "magasinLib" },new int[] { R.id.itemLibelle});
+				 //on essaye de donner l'adapteur créé au spinner
+				 try{ 
+					 //on associe l'adaptateur au spinner des rayons
+					 spinnerMagasin.setAdapter(sAMagasin);
+					 //on va chercher la liste de course en cours
+					 url="faireCourse.php";
+					 String adresse=url();
+					 accessWebService(adresse);
+				 }
+				 catch(NullPointerException e){
+					 Log.i("ListeDeCourse",listeDesMapsMagasin.toString());				
+				 }
+			}
+			else {
+				ensRayons=new EnsembleRayons();
+				jsonMainNode = jsonResponse.optJSONArray("coursesAFaire");		   
 
-			    ensRayons.addArticle(productNumber, productName, rayNumber, rayName, listeQte);
+				for (int i = 0; i < jsonMainNode.length(); i++) {
+					JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+					String productName = jsonChildNode.optString("produitLib");
+					String productNumber = jsonChildNode.optString("produitId");
+					String rayName = jsonChildNode.optString("rayonLib");
+					String rayNumber = jsonChildNode.optString("rayonId");
+					String listeQte = jsonChildNode.optString("listeQte");
+
+					ensRayons.addArticle(productNumber, productName, rayNumber, rayName, listeQte);
+				}
+
+			   //création de l'adapteur pour le choix du rayon qd on fait la liste de course
+			   monAdapteur = new AdapterExpandableRayonProduit(this);
+			   monAdapteur.setEnsRayon(ensRayons);
+			   try{ 
+				   Log.i("ListeDeCourse", "setAdapter");	
+				   //on associe l'adaptateur Ã  la listView
+				   listeViewDesProduitsDeLaListeParRayons.setAdapter(monAdapteur);
 			   }
-			  } catch (JSONException e) {
-			   Toast.makeText(getApplicationContext(), "Error" + e.toString(),
-			     Toast.LENGTH_SHORT).show();
-			  }
-		  //création de l'adapteur pour le choix du rayon qd on fait la liste de course
-		  monAdapteur = new AdapterExpandableRayonProduit(this);
-		  monAdapteur.setEnsRayon(ensRayons);
-		  try{ 
-			  Log.i("ListeDeCourse", "setAdapter");	
-			  //on associe l'adaptateur Ã  la listView
-			  listeViewDesProduitsDeLaListeParRayons.setAdapter(monAdapteur);
-
+			   catch(NullPointerException e){
+				   Log.i("ListeDeCourse", listeViewDesProduitsDeLaListeParRayons.toString());		 
+			   }
+			}
 		 }
-		 catch(NullPointerException e){
-			 Log.i("ListeDeCourse", listeViewDesProduitsDeLaListeParRayons.toString());		 
+		 catch (JSONException e) {
+			 Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
 		 }
 	 }
 	 
@@ -169,5 +230,12 @@ public class FaireCourseActivity extends BaseActivity {
 			if(reportEffectue)accessWebService(adresse);
 		}
 	};
-	
+	//cree une map Ã  partir des paramÃ¨tres	
+	private HashMap<String, String> creerMapMagasin(String libMagasin, String idMagasin) {
+		HashMap<String, String> mapMagasin = new HashMap<String, String>();
+		mapMagasin.put("magasinLib", libMagasin);
+		mapMagasin.put("magasinId", idMagasin);
+		
+		return mapMagasin;
+	}
 }

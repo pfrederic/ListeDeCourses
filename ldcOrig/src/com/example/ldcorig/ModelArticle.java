@@ -13,34 +13,34 @@ public class ModelArticle {
 	  selected=false;
 	}
 	public String getNom() {
-	    return nomArticle;
-	  }
+		return nomArticle;
+	}
 
-	  public void setNom(String nom) {
-	    nomArticle = nom;
-	  }
+	public void setNom(String nom) {
+		nomArticle = nom;
+	}
 	
-	  public String getNo() {
-		   return noArticle;
-	  }
+	public String getNo() {
+		return noArticle;
+	}
 
-	  public void setNo(String no) {
-		   noArticle = no;
-	 }
+	public void setNo(String no) {
+		noArticle = no;
+	}
 		  
-	  public String getQte() {
-		  return qteAAcheter;
-	  }
-		  
-	  public void setQte(String qte) {
-		  qteAAcheter = qte;
-	  }  
+	public String getQte() {
+		return qteAAcheter;
+	}
+	 
+	public void setQte(String qte) {
+		qteAAcheter = qte;
+	}  
 	  
-	  public boolean isSelected() {
-	    return selected;
-	  }
+	public boolean isSelected() {
+		return selected;
+	}
 
-	  public void setSelected(boolean selectionne) {
-	    this.selected = selectionne;
-	  }
+	public void setSelected(boolean selectionne) {
+		this.selected = selectionne;
+	}
 }

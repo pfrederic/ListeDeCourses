@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class RemplirListe extends BaseActivity{
-	//propriétés
+	//propri�t�s
 	private String url = "listeRayons.php";
 	public String url(){return baseUrl+url;};
 	//widgets manipulés
@@ -82,7 +82,6 @@ public class RemplirListe extends BaseActivity{
 	//charge les données de la fenêtre: liste des rayons et liste des produits du rayon 
 	@Override
 	public void traiterDonneesRecues(String jsonResult){
-		{
 			try{
 				JSONObject jsonResponse = new JSONObject(jsonResult);				
 				JSONArray jsonMainNode = jsonResponse.optJSONArray("rayonInfos");
@@ -175,8 +174,6 @@ public class RemplirListe extends BaseActivity{
 				Toast.makeText(getApplicationContext(), "Error" + e.toString(),
 						Toast.LENGTH_SHORT).show();
 			}
-			
-		}
 
 	}
 	//cree une map à partir des paramètres	

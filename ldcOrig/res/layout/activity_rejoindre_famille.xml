@@ -11,7 +11,7 @@
         android:layout_height="match_parent" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewMagasinId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@
             android:id="@+id/editTextRejoindreFamilleCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/textViewMagasinId"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp"
             android:ems="10"
@@ -36,8 +36,8 @@
             android:id="@+id/buttonRejoindreFamilleRejoindre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_alignRight="@+id/textView1"
+            android:layout_alignLeft="@+id/textViewMagasinId"
+            android:layout_alignRight="@+id/textViewMagasinId"
             android:layout_centerVertical="true"
             android:text="Rejoindre" />
 

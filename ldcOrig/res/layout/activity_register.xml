@@ -20,7 +20,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewMagasinId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -33,8 +33,8 @@
             android:id="@+id/editTextRegisterIdentifiant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView1"
-            android:layout_alignBottom="@+id/textView1"
+            android:layout_alignBaseline="@+id/textViewMagasinId"
+            android:layout_alignBottom="@+id/textViewMagasinId"
             android:layout_alignLeft="@+id/editTextRegisterMdp"
             android:layout_alignParentRight="true"
             android:ems="10" >
@@ -44,7 +44,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignLeft="@+id/textViewMagasinId"
             android:layout_below="@+id/editTextRegisterIdentifiant"
             android:layout_marginTop="34dp"
             android:text="Mot de passe" />
