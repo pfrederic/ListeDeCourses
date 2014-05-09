@@ -26,5 +26,25 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_rejoindre_famille">RejoindreFamilleActivity</string>
     <string name="title_activity_creer_famille">CreerFamilleActivity</string>
+    <string name="libelle_de_la_famille">Libelle de la famille</string>
+    <string name="creer_votre_famille">Créer votre famille</string>
+    <string name="rejoindre_une_famille">Rejoindre une famille</string>
+    <string name="magasin_header">Magasin :</string>
+    <string name="Bienvenue_message">Bienvenue sur votre liste de course</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="mdp">Mot de passe :</string>
+    <string name="verif_mdp">Vérification du mot de passe</string>
+    <string name="connecter">Se connecter</string>
+    <string name="inscrire">S inscrire</string>
+    <string name="inscription">Inscription</string>
+    <string name="mail">Adresse mail</string>
+    <string name="naissance">Date de naissance</string>
+    <string name="jour">Jour</string>
+    <string name="jour_hint">JJ</string>
+    <string name="mois">Mois</string>
+    <string name="mois_hint">MM</string>
+    <string name="annee">Annee</string>
+    <string name="annee_hint">AAAA</string>
+    <string name="saisi_code_famille">Saisissez le code d une famille</string>
 
 </resources>

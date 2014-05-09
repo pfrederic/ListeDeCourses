@@ -43,7 +43,7 @@ public class LoginActivity extends BaseActivity {
 		final String id = pref.getString(PREF_ID, null);
 		final String mdp = pref.getString(PREF_MDP, null);
 		if(id!=null && mdp!=null) {
-			String adresse = url()+"?action=login&id="+id+"&mdp="+mdp;
+			String adresse = url()+"?action=connection&id="+id+"&mdp="+mdp;
 			Log.i("ListeDeCourse", adresse);
 			accessWebService(adresse);
 		}
@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity {
 				Toast.makeText(getApplicationContext(), "Veulliez renseigné les champs", Toast.LENGTH_SHORT).show();
 			}
 			else {
-				String adresse = url()+"?action=login&id="+id+"&mdp="+mdp;
+				String adresse = url()+"?action=connection&login="+id+"&mdp="+mdp;
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
 			}

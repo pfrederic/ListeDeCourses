@@ -71,7 +71,7 @@ public class RegisterActivity extends BaseActivity {
 					JSONArray jsonMainNode = jsonResponse.optJSONArray("register");
 					JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
 					if(jsonChildNode.has("erreur")==true) {
-						if(jsonChildNode.optString("erreur").equals("id")) {
+						if(jsonChildNode.optString("erreur").equals("login")) {
 							Log.i("ListeDeCourse", "Pseudo déja utilisé");
 							Toast.makeText(getApplicationContext(), "Ce pseudo est déjà utilisé", Toast.LENGTH_SHORT).show();
 						}
@@ -260,7 +260,7 @@ public class RegisterActivity extends BaseActivity {
 					creerFamille=true;
 				}
 				
-				String adresse=url()+"?action=register&id="+id+"&mdp="+mdp+"&mail="+mail+"&naissance="+dateNaissance;
+				String adresse=url()+"?action=register&login="+id+"&mdp="+mdp+"&mail="+mail+"&naissance="+dateNaissance;
 				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
 			}

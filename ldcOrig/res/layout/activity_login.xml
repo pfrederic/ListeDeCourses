@@ -17,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
-            android:text="Bienvenue sur votre liste de course" />
+            android:text="@string/Bienvenue_message" />
 
         <EditText
             android:id="@+id/editTextId"
@@ -27,7 +27,7 @@
             android:layout_below="@+id/textViewMagasinId"
             android:layout_marginTop="26dp"
             android:ems="10"
-            android:hint="Identifiant" />
+            android:hint="@string/identifiant" />
 
         <EditText
             android:id="@+id/editTextMdp"
@@ -37,7 +37,7 @@
             android:layout_below="@+id/editTextId"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Mot de passe"
+            android:hint="@string/mdp"
             android:inputType="textPassword" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_below="@+id/editTextMdp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="Se connecter" />
+            android:text="@string/connecter" />
 
         <Button
             android:id="@+id/buttonInscription"
@@ -56,7 +56,7 @@
             android:layout_below="@+id/buttonSeConnecter"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="S&apos;inscrire" />
+            android:text="@string/inscrire" />
 
     </RelativeLayout>
 </FrameLayout>

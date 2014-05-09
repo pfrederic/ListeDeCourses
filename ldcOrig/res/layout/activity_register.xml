@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/editTextRegisterIdentifiant"
             android:layout_centerHorizontal="true"
-            android:text="Inscription"
+            android:text="@string/inscription"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="55dp"
-            android:text="Identifiant" />
+            android:text="@string/identifiant" />
 
         <EditText
             android:id="@+id/editTextRegisterIdentifiant"
@@ -47,7 +47,7 @@
             android:layout_alignLeft="@+id/textViewMagasinId"
             android:layout_below="@+id/editTextRegisterIdentifiant"
             android:layout_marginTop="34dp"
-            android:text="Mot de passe" />
+            android:text="@string/mdp" />
 
         <EditText
             android:id="@+id/editTextRegisterMdp"
@@ -68,7 +68,7 @@
             android:layout_alignRight="@+id/textView2"
             android:layout_below="@+id/editTextRegisterMdp"
             android:layout_marginTop="31dp"
-            android:text="Vérification du mot de passe" />
+            android:text="@string/verif_mdp" />
 
         <EditText
             android:id="@+id/editTextRegisterMdpConfirm"
@@ -98,7 +98,7 @@
             android:layout_alignLeft="@+id/textView4"
             android:layout_below="@+id/editTextRegisterMail"
             android:layout_marginTop="26dp"
-            android:text="Date de naissance" />
+            android:text="@string/naissance" />
 
         <TextView
             android:id="@+id/textView4"
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView3"
             android:layout_centerVertical="true"
-            android:text="Adresse mail" />
+            android:text="@string/mail" />
 
         <Button
             android:id="@+id/boutonRejoindreFamille"
@@ -115,7 +115,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
             android:layout_toRightOf="@+id/textView5"
-            android:text="Créer et rejoindre une famille" />
+            android:text="@string/mail" />
 
         <TextView
             android:id="@+id/TextView02"
@@ -124,7 +124,7 @@
             android:layout_above="@+id/editTextRegisterNaissanceJour"
             android:layout_toLeftOf="@+id/editTextRegisterNaissanceAnnee"
             android:layout_toRightOf="@+id/textView4"
-            android:text="Mois" />
+            android:text="@string/mois" />
 
         <TextView
             android:id="@+id/TextView01"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView5"
             android:layout_below="@+id/textView5"
-            android:text="Jour" />
+            android:text="@string/jour" />
 
         <EditText
             android:id="@+id/editTextRegisterNaissanceMois"
@@ -143,7 +143,7 @@
             android:layout_toLeftOf="@+id/textView8"
             android:layout_toRightOf="@+id/textView3"
             android:ems="10"
-            android:hint="MM"
+            android:hint="@string/mois_hint"
             android:inputType="numberSigned"
             android:maxLength="@integer/Deux" />
 
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/editTextRegisterNaissanceAnnee"
             android:layout_alignLeft="@+id/editTextRegisterNaissanceAnnee"
-            android:text="Année" />
+            android:text="@string/annee" />
 
         <EditText
             android:id="@+id/editTextRegisterNaissanceJour"
@@ -162,7 +162,7 @@
             android:layout_alignRight="@+id/textView4"
             android:layout_below="@+id/TextView01"
             android:ems="10"
-            android:hint="JJ"
+            android:hint="@string/jour_hint"
             android:inputType="numberSigned"
             android:maxLength="@integer/Deux" />
 
@@ -174,7 +174,7 @@
             android:layout_alignBottom="@+id/editTextRegisterNaissanceMois"
             android:layout_toRightOf="@+id/textView6"
             android:ems="10"
-            android:hint="AAAA"
+            android:hint="@string/annee_hint"
             android:inputType="numberSigned"
             android:maxLength="@integer/Quatre" />
 
@@ -186,7 +186,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/textView5"
             android:layout_alignTop="@+id/boutonRejoindreFamille"
-            android:text="Créer une nouvelle famille" />
+            android:text="@string/creer_votre_famille" />
 
     </RelativeLayout>
 

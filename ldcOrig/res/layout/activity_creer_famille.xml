@@ -17,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="106dp"
-            android:text="Libelle de la famille" />
+            android:text="@string/libelle_de_la_famille" />
 
         <EditText
             android:id="@+id/editTextCreerFamilleLibelle"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Créer la famille" />
+            android:text="@string/creer_votre_famille" />
 
         <TextView
             android:id="@+id/textView2"
@@ -46,7 +46,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="31dp"
-            android:text="Créer votre famille"
+            android:text="@string/creer_votre_famille"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
-            android:text="Rejoindre une famille" />
+            android:text="@string/rejoindre_une_famille" />
 
     </RelativeLayout>
 
