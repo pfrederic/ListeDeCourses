@@ -4,6 +4,7 @@ import com.example.ldcorig.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,8 +18,8 @@ public abstract class BaseActivity extends Activity {
 	protected static final String PREF_MDP = "mdp";
      //adresse du web service qui fournit les donnÃ©es
 	 protected String url;
-	//protected String baseUrl="http://172.16.63.142/coursesOrig/";
-	protected String baseUrl="http://192.168.1.23/coursesOrig/";
+	protected String baseUrl="http://172.16.63.142/coursesOrig/";
+	//protected String baseUrl="http://192.168.1.23/coursesOrig/";
 	 
 	 //accesseur Ã  implémenter dans chaque classe descendante
 	 /* Retourne l'url complète sans les variables $_GET (le chemin de la page)
@@ -50,11 +51,10 @@ public abstract class BaseActivity extends Activity {
 		switch (item.getItemId())
 		{
 		    //faire les courses
-			case R.id.action_courses: Intent i = new Intent(this,FaireCourseActivity.class );startActivity(i);finish();break;
-			//ranger les rayons dans le magasin
-			case R.id.action_magasin: Intent i1 = new Intent(this,MagasinActivity.class );startActivity(i1);finish();break;			
+			case R.id.action_courses: Intent i = new Intent(this,FaireCourseActivity.class );startActivity(i);finish();break;		
 			//remplir la liste de course
-			case R.id.action_liste: Intent i2 = new Intent(this,RemplirListe.class );startActivity(i2);finish();break;	
+			case R.id.action_liste: Intent i2 = new Intent(this,RemplirListe.class );startActivity(i2);finish();break;
+			case R.id.action_code: Intent i3 = new Intent(this,SettingActivity.class );startActivity(i3);finish();break;
 			/*default:
 				return super.onOptionsItemSelected(item);*/
 		}		

@@ -90,11 +90,15 @@ public class FaireCourseActivity extends BaseActivity {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				Log.i("ListeDeCourse", parent.toString());
-				Log.i("ListeDeCourse", view.toString());
-				Log.i("ListeDeCourse", String.valueOf(id));
+				Log.i("ListeDeCourse", "onItemSelected(AdapterView<?> parent, View view, int position, long id)");
+				//Changement de valeur de la propriété
+				url="faireCourse.php";
 				String idDuMagasin=((HashMap<String,String>)(spinnerMagasin.getSelectedItem())).get("magasinId");
 				Log.i("ListeDeCourse", idDuMagasin);
+				//on va chercher la liste de course en cours
+				String adresse=url()+"?action=liste&magasin="+idDuMagasin;
+				Log.i("ListeDeCourse", adresse);
+				accessWebService(adresse);
 			}
 
 			@Override
@@ -121,15 +125,11 @@ public class FaireCourseActivity extends BaseActivity {
 					listeDesMapsMagasin.add(creerMapMagasin(name, number));
 				 }//fin du for de parcours du json
 				 //création de l'adapteur pour le choix du rayon
-				 SimpleAdapter sAMagasin = new SimpleAdapter(this,listeDesMapsMagasin,R.layout.magasin_layout,new String[] { "magasinLib" },new int[] { R.id.itemLibelle});
+				 SimpleAdapter sAMagasin = new SimpleAdapter(this, listeDesMapsMagasin,R.layout.magasin_layout,new String[] { "magasinLib" }, new int[] { R.id.itemLibelle});
 				 //on essaye de donner l'adapteur créé au spinner
 				 try{ 
 					 //on associe l'adaptateur au spinner des rayons
 					 spinnerMagasin.setAdapter(sAMagasin);
-					 //on va chercher la liste de course en cours
-					 url="faireCourse.php";
-					 String adresse=url();
-					 accessWebService(adresse);
 				 }
 				 catch(NullPointerException e){
 					 Log.i("ListeDeCourse",listeDesMapsMagasin.toString());				
@@ -138,14 +138,17 @@ public class FaireCourseActivity extends BaseActivity {
 			else {
 				ensRayons=new EnsembleRayons();
 				jsonMainNode = jsonResponse.optJSONArray("coursesAFaire");		   
-
 				for (int i = 0; i < jsonMainNode.length(); i++) {
 					JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
 					String productName = jsonChildNode.optString("produitLib");
 					String productNumber = jsonChildNode.optString("produitId");
+					String listeQte = jsonChildNode.optString("listeQte");
 					String rayName = jsonChildNode.optString("rayonLib");
 					String rayNumber = jsonChildNode.optString("rayonId");
-					String listeQte = jsonChildNode.optString("listeQte");
+					if(rayName.equals("") && rayNumber.equals("")) {
+						rayName="Ne se trouve pas dans le magasin";
+						rayNumber="0";
+					}
 
 					ensRayons.addArticle(productNumber, productName, rayNumber, rayName, listeQte);
 				}
@@ -187,6 +190,7 @@ public class FaireCourseActivity extends BaseActivity {
 					}
 				}
 			}//fin du for
+			Log.i("ListeDeCourse", adresse);
 			if(supressionAEffectuer)accessWebService(adresse);
 		}
 	};
@@ -207,6 +211,7 @@ public class FaireCourseActivity extends BaseActivity {
 					}
 				}
 			}
+			Log.i("ListeDeCourse", adresse);
 			if(achatEffectue)accessWebService(adresse);
 		}
 	};
@@ -227,10 +232,11 @@ public class FaireCourseActivity extends BaseActivity {
 					}
 				}
 			}
+			Log.i("ListeDeCourse", adresse);
 			if(reportEffectue)accessWebService(adresse);
 		}
 	};
-	//cree une map Ã  partir des paramÃ¨tres	
+	//cree une map à partir des paramètres	
 	private HashMap<String, String> creerMapMagasin(String libMagasin, String idMagasin) {
 		HashMap<String, String> mapMagasin = new HashMap<String, String>();
 		mapMagasin.put("magasinLib", libMagasin);

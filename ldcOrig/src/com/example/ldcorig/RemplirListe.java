@@ -9,7 +9,11 @@ import org.json.JSONObject;
 
 import com.example.ldcorig.R;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,9 +25,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class RemplirListe extends BaseActivity{
+	
 	//propriÈtÈs
 	private String url = "listeRayons.php";
 	public String url(){return baseUrl+url;};
+	final Context context = this;
+	
 	//widgets manipul√©s
 	private Spinner spinnerRayon;	
 	private Spinner spinnerProduit;
@@ -34,28 +41,94 @@ public class RemplirListe extends BaseActivity{
 	public List<Map<String, String>> listeDesMapsProduit = new ArrayList<Map<String, String>>();
 	public List<Map<String, String>> listeDesMapsProduitDsListe = new ArrayList<Map<String, String>>();
 	//les m√©thodes de la classe
-	//code s'ex√©cutant √† la cr√©ation de l'activit√©
+	//code s'ex√©cutant √† la cr√©ation de l'activit√©	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//on choisi la vue correspondant √† l'activit√©
 		setContentView(R.layout.activity_remplir_liste);
+	
 		//obtention de la liste view des produits √† acheter
 		listViewProduits=(ListView)findViewById(R.id.listViewProduits);
+		listViewProduits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Log.i("ListeDeCourse", "RemplirListe::onItemClick");
+				Log.i("ListeDeCourse", listeDesMapsProduitDsListe.get(position).toString());
+				final String noProduit = listeDesMapsProduitDsListe.get(position).get("produitId").toString();
+				String quantite = listeDesMapsProduitDsListe.get(position).get("listeQte").toString();
+				String nomProduit = listeDesMapsProduitDsListe.get(position).get("produitLib").toString();
+				final EditText inputQuantite = new EditText(context);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setCancelable(true);
+				builder.setTitle("Modification de la quantitÈ");
+				builder.setMessage(nomProduit+" : ");
+				builder.setView(inputQuantite);
+				inputQuantite.setText(quantite);
+				inputQuantite.setInputType(InputType.TYPE_CLASS_NUMBER);
+				inputQuantite.selectAll();
+				builder.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String nouvelleQuantite=inputQuantite.getText().toString();
+						String adresse=baseUrl+"listeCourse.php?action=modification&produitId="+noProduit+"&qte="+nouvelleQuantite;
+						Log.i("ListeDeCourse", adresse);
+						accessWebService(adresse);
+					}
+				});
+				builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}					
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			}			
+		});
+		listViewProduits.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				Log.i("ListeDeCourse", "RemplirListe::onItemLongClick");
+				Log.i("ListeDeCourse", listeDesMapsProduitDsListe.get(position).toString());
+				final String noProduit = listeDesMapsProduitDsListe.get(position).get("produitId").toString();
+				String nomProduit = listeDesMapsProduitDsListe.get(position).get("produitLib").toString();
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setCancelable(true);
+				builder.setTitle("Suppression");
+				builder.setMessage("Etes-vous s˚r de vouloir supprimer le produit "+nomProduit+" ?");
+				builder.setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String adresse=baseUrl+"listeCourse.php?action=suppression&produitId="+noProduit;
+						Log.i("ListeDeCourse", adresse);
+						accessWebService(adresse);
+					}
+				});
+				builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}					
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				return false;
+			}
+		});
 		//obtention du bouton ajouter et codage du click sur le bouton ajouter
 		boutonAjouter=(Button) findViewById(R.id.buttonAjouterALaListe);
 		boutonAjouter.setOnClickListener(new AdapterView.OnClickListener(){
 			
 			@Override
 			public void onClick(View v) {
-				// ajout d'un produit √† la liste
+				// ajout d'un produit ‡ la liste
 				spinnerProduit= (Spinner)findViewById(R.id.SpinnerProduit);
 				String noProduit=((HashMap<String,String>)(spinnerProduit.getSelectedItem())).get("produitId");
 				String qte=((EditText)findViewById(R.id.editTextQuantite)).getText().toString();
 				String adresse=baseUrl+"listeCourse.php?action=ajout&produitId="+noProduit+"&qte="+qte;
 				Log.i("ListeDeCourse",adresse);
-				accessWebService(adresse);
-				
+				accessWebService(adresse);				
 			}});
 		//obtention du spinner des rayons dans la layout listeDeCourse		
 		spinnerRayon= (Spinner)findViewById(R.id.spinnerRayon);
@@ -66,8 +139,7 @@ public class RemplirListe extends BaseActivity{
 		    
 		    	String nomDuRayon=((HashMap<String,String>)(spinnerRayon.getSelectedItem())).get("rayonLib");
 		    	Log.i("ListeDeCourse",nomDuRayon);
-	            accessWebService(baseUrl+"listeProduits.php?rayon="+nomDuRayon);
-	            
+	            accessWebService(baseUrl+"listeProduits.php?rayon="+nomDuRayon);	            
 		    }
 
 		    public void onNothingSelected(AdapterView<?> parent) {
@@ -121,9 +193,9 @@ public class RemplirListe extends BaseActivity{
 							String number = jsonChildNode.optString("produitId");
 							listeDesMapsProduit.add(creerMapProduit(name, number));
 						}//fin du for de parcours du json
-						//cr√©ation de l'adapteur pour le choix du rayon
+						//crÈation de l'adapteur pour le choix du rayon
 						SimpleAdapter saProduit = new SimpleAdapter(this,listeDesMapsProduit,R.layout.produit_layout,new String[] { "produitLib" },new int[] { R.id.itemLibelleRayon});
-						//on essaye de donner l'adapteur cr√©√© au spinner
+						//on essaye de donner l'adapteur crÈÈ au spinner
 						
 						try{ 
 							//on associe l'adaptateur au spinner des rayons
@@ -149,12 +221,12 @@ public class RemplirListe extends BaseActivity{
 								String libelle=jsonChildNode.optString("produitLib");
 								listeDesMapsProduitDsListe.add(creerMapProduitAAcheter(idProduit, qte, libelle));
 							}//fin du for de parcours du json
-							//cr√©ation de l'adapteur pour le remplissage de la liste de course
+							//crÈation de l'adapteur pour le remplissage de la liste de course
 							SimpleAdapter saListe = new SimpleAdapter(this,listeDesMapsProduitDsListe,R.layout.produit_a_acheter_layout,new String[] { "produitId","produitLib","listeQte" },new int[] { R.id.itemNumeroProduit,R.id.itemLibelleProduit,R.id.itemQuantite});
-							//on essaye de donner l'adapteur cr√©√© √† la liste de course
+							//on essaye de donner l'adapteur crÈÈ ‡ la liste de course
 							
 							try{ 
-								//on associe l'adaptateur √† la liste des produits √† acheter
+								//on associe l'adaptateur ‡†la liste des produits ‡ acheter
 								listViewProduits.setAdapter(saListe);
 							}
 							catch(NullPointerException e){
@@ -186,18 +258,18 @@ public class RemplirListe extends BaseActivity{
 		
 		return mapProduitAAcheter;
 	}
-	//cree une map √† partir des param√®tres
+	//cree une map ‡ partir des paraËtres
 	private HashMap<String, String> creerMapRayon(String name, String number) {
 		HashMap<String, String> mapRayon = new HashMap<String, String>();
 		mapRayon.put("rayonId", number);
 		mapRayon.put("rayonLib", name);
 		return mapRayon;
 	}
-	//cree une map √† partir des param√®tres
+	//cree une map ‡ partir des paramËtres
 	private HashMap<String, String> creerMapProduit(String name, String number) {
 		HashMap<String, String> mapRayon = new HashMap<String, String>();
 		mapRayon.put("produitId", number);
 		mapRayon.put("produitLib", name);
 		return mapRayon;
-	}
+	} 
 }//fin de la classe RemplirListe

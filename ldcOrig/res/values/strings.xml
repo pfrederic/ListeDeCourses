@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">listeDeCourse</string>
-    <string name="action_magasin">Magasin</string>
+    <string name="action_code">Code famille</string>
     <string name="action_liste">Liste de Course</string>
     <string name="action_courses">Faire les Courses</string>
     <string name="lib_btEnregistrer">Enregistrer</string>
@@ -46,5 +46,8 @@
     <string name="annee">Annee</string>
     <string name="annee_hint">AAAA</string>
     <string name="saisi_code_famille">Saisissez le code d une famille</string>
+    <string name="nomFamille">Nom de la famille</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="infoFamille">Le code d accès de la famille est :</string>
 
 </resources>

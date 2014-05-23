@@ -43,16 +43,15 @@ public class RayonAdapter extends ArrayAdapter<ModelRayon> {
 		      viewHolder.checkbox = (CheckBox) view.findViewById(R.id.itemCheckBox);
 		      viewHolder.checkbox
 		          .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
 		            @Override
 		            public void onCheckedChanged(CompoundButton buttonView,
 		                boolean isChecked) {
 		              ModelRayon element = (ModelRayon) viewHolder.checkbox
 		                  .getTag();
 		              element.setSelected(buttonView.isChecked());
-
 		            }
 		          });
+		      
 		      view.setTag(viewHolder);
 		      viewHolder.checkbox.setTag(list.get(position));
 		    } else {
@@ -65,6 +64,7 @@ public class RayonAdapter extends ArrayAdapter<ModelRayon> {
 		    holder.checkbox.setChecked(list.get(position).isSelected());
 		    return view;
 		  }
-		} 
+		  
+} 
 
 

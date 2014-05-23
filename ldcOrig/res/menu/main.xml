@@ -1,15 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <!-- Arranger les rayons dans le magasin -->
-    <item android:id="@+id/action_magasin"
-          android:icon="@drawable/rayons"
-          android:title="@string/action_magasin"
-          android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Magasin"/>
     <!-- Elaborer la liste de course -->
     <item android:id="@+id/action_liste"
-        android:icon="@drawable/liste"
+          android:icon="@drawable/liste"
           android:title="@string/action_liste"
-          android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Liste"/><item android:id="@+id/action_courses" android:icon="@drawable/caddy" android:title="@string/action_courses" android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Courses"/>
+          android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Liste"/>
     <!-- Faire les courses -->
+    <item android:id="@+id/action_courses" 
+          android:icon="@drawable/caddy" 
+          android:title="@string/action_courses" 
+          android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Courses"/>
     
+    <item android:id="@+id/action_code"
+		  android:icon="@drawable/setting"
+          android:title="@string/action_code"
+          android:showAsAction="always" android:menuCategory="secondary" android:titleCondensed="Code"/>
 </menu>
     

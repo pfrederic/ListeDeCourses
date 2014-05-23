@@ -21,15 +21,6 @@
             android:name="com.example.ldcorig.RemplirListe"
             android:label="@string/app_name" >
         </activity>
-        <!-- Gérer les rayons d'un magasin -->
-        <activity
-            android:name="com.example.ldcorig.MagasinActivity"
-            android:label="@string/title_activity_magasin"
-            android:parentActivityName="com.example.ldcorig.RemplirListe" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.listedecourse.MainActivity" />
-        </activity>
         <!-- C'est le grand jour on fait les courses -->
         <activity
             android:name="com.example.ldcorig.FaireCourseActivity"
@@ -59,6 +50,10 @@
         <activity
             android:name="com.example.ldcorig.CreerFamilleActivity"
             android:label="@string/title_activity_creer_famille" >
+        </activity>
+        <activity
+            android:name="com.example.ldcorig.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 

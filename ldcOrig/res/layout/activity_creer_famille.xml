@@ -26,7 +26,8 @@
             android:layout_below="@+id/textViewMagasinId"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:ems="10" >
+            android:ems="10"
+            android:hint="@string/nomFamille" >
 
             <requestFocus />
         </EditText>
@@ -40,7 +41,7 @@
             android:text="@string/creer_votre_famille" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewSettingCodeFamille"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

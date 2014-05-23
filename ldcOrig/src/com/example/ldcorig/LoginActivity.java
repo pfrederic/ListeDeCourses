@@ -40,10 +40,10 @@ public class LoginActivity extends BaseActivity {
 		boutonSeConnecter.setOnClickListener(listenerConnexion);
 		boutonInscription.setOnClickListener(listenerInscription);
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
-		final String id = pref.getString(PREF_ID, null);
-		final String mdp = pref.getString(PREF_MDP, null);
+		String id = pref.getString(PREF_ID, null);
+		String mdp = pref.getString(PREF_MDP, null);
 		if(id!=null && mdp!=null) {
-			String adresse = url()+"?action=connection&id="+id+"&mdp="+mdp;
+			String adresse = url()+"?action=connection&login="+id+"&mdp="+mdp;
 			Log.i("ListeDeCourse", adresse);
 			accessWebService(adresse);
 		}
@@ -63,7 +63,6 @@ public class LoginActivity extends BaseActivity {
 	    //le webservice répond et on reçoit sa réponse dans la variable "jsonResult"
 		//on garde les bonnes habitudes
 		Log.i("ListeDeCourse", "LoginActivity::taiterDonneesRecues(String jsonResult)");
-		Log.i("ListeDeCourse", jsonResult.toString());
 		try{
 			JSONObject jsonResponse = new JSONObject(jsonResult);				
 			JSONArray jsonMainNode = jsonResponse.optJSONArray("authentification");
@@ -76,19 +75,13 @@ public class LoginActivity extends BaseActivity {
 			//Si le retour du webservice contient autre chose
 			else {
 				Log.i("ListeDeCourse", "Connection success");
-				SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
-				final String idShared = pref.getString(PREF_ID, null);
-				final String mdpShared = pref.getString(PREF_MDP, null);
-				//Si les infos stockées dans le téléphone sont différents de null
-				if(idShared!=null || mdpShared!=null) {
-				    String id = jsonChildNode.optString("membreId");
-					String mdp = jsonChildNode.optString("membreMdp");
-					getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-					.edit()
-					.putString(PREF_ID, id)
-					.putString(PREF_MDP, mdp)
-					.commit();
-				}
+				String id = jsonChildNode.optString("membreLogin");
+				String mdp = jsonChildNode.optString("membreMdp");
+				getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+				.edit()
+				.putString(PREF_ID, id)
+				.putString(PREF_MDP, mdp)
+				.commit();
 				//Si il n'y a pas d'identifiant de la famille
 				if(jsonChildNode.optString("familleId").equals("null")) {
 					//liaison entre les 2 activités
