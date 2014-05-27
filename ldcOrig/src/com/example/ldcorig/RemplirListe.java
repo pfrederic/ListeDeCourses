@@ -128,7 +128,8 @@ public class RemplirListe extends BaseActivity{
 				String qte=((EditText)findViewById(R.id.editTextQuantite)).getText().toString();
 				String adresse=baseUrl+"listeCourse.php?action=ajout&produitId="+noProduit+"&qte="+qte;
 				Log.i("ListeDeCourse",adresse);
-				accessWebService(adresse);				
+				accessWebService(adresse);	
+				((EditText)findViewById(R.id.editTextQuantite)).getText().clear();
 			}});
 		//obtention du spinner des rayons dans la layout listeDeCourse		
 		spinnerRayon= (Spinner)findViewById(R.id.spinnerRayon);
@@ -154,6 +155,7 @@ public class RemplirListe extends BaseActivity{
 	//charge les données de la fenêtre: liste des rayons et liste des produits du rayon 
 	@Override
 	public void traiterDonneesRecues(String jsonResult){
+		Log.i("ListeDeCourse", jsonResult.toString());
 			try{
 				JSONObject jsonResponse = new JSONObject(jsonResult);				
 				JSONArray jsonMainNode = jsonResponse.optJSONArray("rayonInfos");
@@ -240,11 +242,9 @@ public class RemplirListe extends BaseActivity{
 						}//fin de "ce n'est pas la liste de course non plus"
 					}//fin de "ce n'est pas la liste des produits non plus"
 				}//fin de "ce n'est pas la liste des rayons"
-
 			} //fin du try
 			catch (JSONException e) {
-				Toast.makeText(getApplicationContext(), "Error" + e.toString(),
-						Toast.LENGTH_SHORT).show();
+				Log.e("ListeDeCourse", "Error " + e.toString());
 			}
 
 	}

@@ -167,7 +167,8 @@ public class FaireCourseActivity extends BaseActivity {
 			}
 		 }
 		 catch (JSONException e) {
-			 Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+			 Log.e("ListeDeCourse", "Error" + e.toString());
+			 listeViewDesProduitsDeLaListeParRayons.removeAllViewsInLayout();
 		 }
 	 }
 	 

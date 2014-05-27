@@ -233,8 +233,7 @@ int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable caddy 0x7f020057
 int drawable ic_launcher 0x7f020058
 int drawable liste 0x7f020059
-int drawable rayons 0x7f02005a
-int drawable setting 0x7f02005b
+int drawable setting 0x7f02005a
 int id LinearLayout1 0x7f060042
 int id SpinnerProduit 0x7f060066
 int id TextView01 0x7f060058
