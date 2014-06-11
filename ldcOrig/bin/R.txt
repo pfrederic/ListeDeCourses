@@ -236,8 +236,8 @@ int drawable liste 0x7f020059
 int drawable setting 0x7f02005a
 int id LinearLayout1 0x7f060042
 int id SpinnerProduit 0x7f060066
-int id TextView01 0x7f060058
-int id TextView02 0x7f060055
+int id TextView01 0x7f060057
+int id TextView02 0x7f060054
 int id action_bar 0x7f06001c
 int id action_bar_activity_content 0x7f060015
 int id action_bar_container 0x7f06001b
@@ -258,7 +258,7 @@ int id always 0x7f06000b
 int id beginning 0x7f060011
 int id bigLayout 0x7f06005f
 int id boutonCreerFamille 0x7f06005b
-int id boutonRejoindreFamille 0x7f060054
+int id boutonRejoindreFamille 0x7f06005a
 int id buttonAjouterALaListe 0x7f06006a
 int id buttonAnnulerAchat 0x7f060047
 int id buttonCreerFamilleCreation 0x7f06003f
@@ -284,9 +284,9 @@ int id editTextRegisterIdentifiant 0x7f06004d
 int id editTextRegisterMail 0x7f060052
 int id editTextRegisterMdp 0x7f06004e
 int id editTextRegisterMdpConfirm 0x7f060051
-int id editTextRegisterNaissanceAnnee 0x7f060057
-int id editTextRegisterNaissanceJour 0x7f060056
-int id editTextRegisterNaissanceMois 0x7f060059
+int id editTextRegisterNaissanceAnnee 0x7f060056
+int id editTextRegisterNaissanceJour 0x7f060055
+int id editTextRegisterNaissanceMois 0x7f060058
 int id editTextRejoindreFamilleCode 0x7f06005c
 int id edit_query 0x7f060030
 int id end 0x7f060013
@@ -351,7 +351,7 @@ int id textView3 0x7f060050
 int id textView4 0x7f060053
 int id textView5 0x7f06004f
 int id textView6 0x7f06004c
-int id textView8 0x7f06005a
+int id textView8 0x7f060059
 int id textViewMagasinId 0x7f06003d
 int id textViewSettingCodeFamille 0x7f060040
 int id title 0x7f06002b

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">listeDeCourse</string>
+    <string name="app_name">Liste de Courses</string>
     <string name="action_code">Code famille</string>
     <string name="action_liste">Liste de Course</string>
     <string name="action_courses">Faire les Courses</string>

@@ -91,6 +91,7 @@ public class RejoindreFamilleActivity extends BaseActivity {
 		public void onClick(View v) {
 			String adresse=url()+"?action=rejoindre&code="+editTextCodeFamille.getText().toString();
 			if(saisiOk()) {
+				Log.i("ListeDeCourse", adresse);
 				accessWebService(adresse);
 			}
 		}
